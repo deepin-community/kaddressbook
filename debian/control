@@ -1,0 +1,86 @@
+Source: kaddressbook
+Section: kde
+Priority: optional
+Maintainer: Debian Qt/KDE Maintainers <debian-qt-kde@lists.debian.org>
+Uploaders: Michael Meskes <meskes@debian.org>,
+           Norbert Preining <norbert@preining.info>,
+           Sandro Knauß <hefee@debian.org>,
+           Sune Vuorela <sune@debian.org>,
+Build-Depends: cmake (>= 3.16~),
+               debhelper-compat (= 13),
+               extra-cmake-modules (>= 5.83.0~),
+               gettext,
+               kuserfeedback-dev (>= 1.0.0~),
+               libgpgmepp-dev (>= 1.11.1~),
+               libkf5akonadi-dev (>= 4:21.08.1~),
+               libkf5akonadicontact-dev (>= 4:21.08.1~),
+               libkf5akonadisearch-dev (>= 4:21.08.1~),
+               libkf5coreaddons-dev (>= 5.83.0~),
+               libkf5crash-dev (>= 5.83.0~),
+               libkf5dbusaddons-dev (>= 5.83.0~),
+               libkf5doctools-dev (>= 5.83.0~),
+               libkf5grantleetheme-dev (>= 21.08.1~),
+               libkf5kcmutils-dev (>= 5.83.0~),
+               libkf5kontactinterface-dev (>= 21.08.1~),
+               libkf5libkdepim-dev (>= 4:21.08.1~),
+               libkf5libkleo-dev (>= 4:21.08.1~),
+               libkf5pimcommon-dev (>= 4:21.08.1~),
+               libkf5pimtextedit-dev (>= 21.08.1~),
+               libkf5prison-dev (>= 5.83.0~),
+               pkg-config,
+               pkg-kde-tools (>= 0.12),
+               qtbase5-dev (>= 5.15.0~),
+Standards-Version: 4.6.0
+Homepage: https://invent.kde.org/pim/kaddressbook
+Vcs-Browser: https://salsa.debian.org/qt-kde-team/kde/kaddressbook
+Vcs-Git: https://salsa.debian.org/qt-kde-team/kde/kaddressbook.git
+Rules-Requires-Root: no
+
+Package: kaddressbook
+Section: utils
+Architecture: any
+Depends: akonadi-server,
+         kaddressbook-data (= ${source:Version}),
+         kdepim-runtime,
+         libkf5akonadisearch-bin,
+         libkf5akonadisearch-plugins,
+         libkpimaddressbookimportexport5 (= ${binary:Version}),
+         ${misc:Depends},
+         ${shlibs:Depends},
+Recommends: kdepim-addons
+Description: address book and contact data manager
+ KAddressBook enables you to manage your contacts efficiently and comfortably.
+ It can load and save your contacts to many different locations, including
+ the local file system, LDAP servers, and SQL databases.
+
+Package: kaddressbook-data
+Architecture: all
+Multi-Arch: foreign
+Replaces: kaddressbook (<< 4:21.04.0~)
+Breaks: kaddressbook (<< 4:21.04.0~)
+Depends: ${misc:Depends}
+Description: address book and contact data manager, data files
+ This package is part of the KDE PIM module.
+ This package contains data files.
+
+Package: libkpimaddressbookimportexport-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends: libkf5akonadi-dev (>= 4:21.08.1~),
+         libkf5config-dev (>= 5.71.0~),
+         libkpimaddressbookimportexport5 (= ${binary:Version}),
+         ${misc:Depends},
+         ${shlibs:Depends},
+Description: Addressbook import export library, devel files
+ This package is part of the KDE PIM module.
+
+Package: libkpimaddressbookimportexport5
+Architecture: any
+Multi-Arch: same
+Depends: kaddressbook-data (= ${source:Version}),
+         ${misc:Depends},
+         ${shlibs:Depends},
+Description: Addressbook import export library
+ This package is part of the KDE PIM module.
+Provides: ${ABI:VirtualPackage}

@@ -1,0 +1,4 @@
+kaddressbook: package-name-doesnt-match-sonames libkaddressbookprivate5
+kaddressbook: no-symbols-control-file
+kaddressbook: lacks-ldconfig-trigger usr/lib/*/libkaddressbookprivate.so.5.*
+kaddressbook: no-shlibs usr/lib/*/libkaddressbookprivate.so.5.*

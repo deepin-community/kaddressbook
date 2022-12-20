@@ -1,0 +1,19 @@
+<html>
+
+<h1>{% i18n "Address Book" %}</h1>
+{% if contacts %}
+{% for contact in contacts %}
+<h1>{{ contact.realName|safe }}</h1>
+<p>{% for email in contact.emails %}
+    {{ email.email }}{% if not forloop.last %}, {% endif %}
+{% endfor %}</p>
+{% if contact.note %}
+<p>{{ contact.note|safe }}</p>
+{% endif %}
+<br>
+<br>
+{% endfor %}
+{% endif %}
+
+</html>
+

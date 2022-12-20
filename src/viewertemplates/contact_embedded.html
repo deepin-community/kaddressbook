@@ -1,0 +1,195 @@
+  <div align="center">
+    <table cellpadding="3" cellspacing="0">
+      <tr>
+        <td align="right" valign="top" width="30%" rowspan="3">
+          <img src="contact_photo" width="100" vspace="1">
+        </td>
+        <td align="left" width="70%" colspan="2"><font size="+2" ><b>{{ contact.realName }}</b></font></td>
+      </tr>
+      <tr>
+        <td align="left" colspan="2">
+        {% if contact.title %}
+            {{ contact.title }}
+        {% elif contact.role %}
+            {{ contact.role }}
+        {% else %}
+            {{ contact.profession }}
+        {% endif %}
+        </td>
+      </tr>
+      <tr>
+        <td align="left" colspan="2">{{ contact.organization }}</td>
+      </tr>
+
+      {% if contact.birthday %}
+      <tr>
+        <td align="right" valign="top" width="30%"><b><font color="grey">{% i18n "Birthday" %}</font></b></td>
+        <td align="left" valign="top" colspan="2">
+          {{ contact.formattedBirthday }}&nbsp;{% i18np "(One year old)" "(%1 years old)" contact.age %}
+        </td>
+      </tr>
+      {% endif %}
+
+      {% for phoneNumber in contact.phoneNumbers %}
+      <tr>
+        <td align="right" valign="top" width="30%"><b><font color="grey">{{ phoneNumber.typeLabel }}</font></b></td>
+        {% if phoneNumber.supportsSms %}
+          <td align="left" valign="top"><a href="phone:?index={{ forloop.counter0 }}">{{ phoneNumber.number }}</a></td>
+          <td align="left" valign="top"><a href="sms:?index={{ forloop.counter0 }}"><img src="sms_icon" align="top"/></a></td>
+        {% else %}
+          <td align="left" valign="top" colspan="2"><a href="phone:?index={{ forloop.counter0 }}">{{ phoneNumber.number }}</a></td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+
+      {% for email in contact.emails %}
+      <tr>
+          <td align="right" valign="top" width="30%"><b><font color="grey">{% i18n "Email" %}</font></b></td>
+          <td align="left" valign="top" colspan="2"><a href="mailto:{{ email.email }}">{{ email.email }}</a></td>
+      </tr>
+      {% endfor %}
+
+      {% for imAddress in contact.impps %}
+      <tr>
+          <td align="right" valign="top" width="30%"><b><font color="grey">{{ imAddress.serviceLabel }}</font></b></td>
+          <td align="left" valign="top">{{ imAddress.address.path|safe }}</td>
+          <td align="left" valign="top">{% icon imAddress.serviceIcon small %}</td>
+      </tr>
+      {% endfor %}
+      
+      {% for website in contact.urls %}
+      <tr>
+        <td align="right" valign="top" width="30%"><b><font color="grey">{% i18n "Website" %}</font></b></td>
+        <td align="left" valign="top" colspan="2">
+        {% if website.url.scheme %}
+            <a href="{{ website.url }}">
+        {% else %}
+            <a href="https://{{ website.url }}">
+        {% endif %}
+        {{ website.url }}</a></td>
+      </tr>
+      {% endfor %}
+
+      {% if contact.blogFeed %}
+      <tr>
+        <td align="right" valign="top" width="30%"><b><font color="grey">{% i18n "Blog Feed" %}</font></b></td>
+        <td align="left" valign="top" colspan="2">
+        {% if contact.blogFeed.scheme %}
+            <a href="{{ contact.blogFeed }}">
+        {% else %}
+            <a href="https://{{ contact.blogFeed }}">
+        {% endif %}
+        {{ contact.blogFeed }}</a>
+      </tr>
+      {% endif %}
+
+      {% for address in contact.addresses %}
+      <tr>
+         <td align="right" valign="top" width="30%"><b><font color="grey">{{ address.typeLabel }}</font></b></td>
+         <td align="left" valign="top"><a href="address:?index={{ forloop.counter0 }}">
+         {% with address.formattedAddress as fa %}
+           {% for line in fa.splitlines %}
+             {{ line }}
+             {% if line and not forloop.last %}<br/>{% endif %}
+           {% endfor %}
+         {% endwith %}
+         </a></td>
+         <td align="left" valign="top"><a href="address:?index={{ forloop.counter0 }}">
+            <img src="map_icon" align="top"/>
+         </a></td>
+      </tr>
+      {% endfor %}
+
+      {% if contact.profession %}
+        {% with contact.professionLabel as title %}
+        {% with contact.profession as value %}
+        {% include "contact_row.html" %}
+        {% endwith %}
+        {% endwith %}
+      {% endif %}
+
+      {% if contact.department %}
+        {% with contact.departmentLabel as title %}
+        {% with contact.department as value %}
+        {% include "contact_row.html" %}
+        {% endwith %}
+        {% endwith %}
+      {% endif %}
+
+      {% if contact.office %}
+        {% with contact.officeLabel as title %}
+        {% with contact.office as value %}
+        {% include "contact_row.html" %}
+        {% endwith %}
+        {% endwith %}
+      {% endif %}
+
+      {% if contact.managersName %}
+        {% with contact.managerLabel as title %}
+        {% with contact.managersName as value %}
+        {% include "contact_row.html" %}
+        {% endwith %}
+        {% endwith %}
+      {% endif %}
+
+      {% if contact.assistantsName %}
+        {% with contact.assistantLabel as title %}
+        {% with contact.assistantsName as value %}
+        {% include "contact_row.html" %}
+        {% endwith %}
+        {% endwith %}
+      {% endif %}
+
+      {% if contact.spousesName %}
+        {% with contact.spouseLabel as title %}
+        {% with contact.spousesName as value %}
+        {% include "contact_row.html" %}
+        {% endwith %}
+        {% endwith %}
+      {% endif %}
+
+      {% if contact.anniversary %}
+        {% with contact.anniversaryLabel as title %}
+        {% with contact.formattedAnniversary as value %}
+        {% include "contact_row.html" %}
+        {% endwith %}
+        {% endwith %}
+      {% endif %}
+
+      {% for customField in customFieldsUrl %}
+        {% with customField.title as title %}
+        {% with customField.value|safe as value %}
+        {% include "contact_row.html" %}
+        {% endwith %}
+        {% endwith %}
+      {% endfor %}
+
+      {% for customField in customFields %}
+        {% with customField.title as title %}
+        {% with customField.value as value %}
+        {% include "contact_row.html" %}
+        {% endwith %}
+        {% endwith %}
+      {% endfor %}
+
+      {% if contact.addressBookName %}
+        {% with contact.addressBookLabel as title %}
+        {% with contact.addressBookName as value %}
+        {% include "contact_row.html" %}
+        {% endwith %}
+        {% endwith %}
+      {% endif %}
+      {% if contact.note %}
+        {% with contact.noteLabel as title %}
+        {% with contact.note|linebreaksbr as value %}
+        {% include "contact_row.html" %}
+        {% endwith %}
+        {% endwith %}
+      {% endif %}
+    </table>
+    {% if hasqrcode %}
+      <p align="center">
+       <img src="qrcode" vspace="1">
+      </p>
+    {% endif %}
+  </div>

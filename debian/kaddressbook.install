@@ -1,0 +1,13 @@
+usr/bin/kaddressbook
+usr/lib/*/libkaddressbookprivate.so.5
+usr/lib/*/libkaddressbookprivate.so.5.*
+usr/lib/*/qt5/plugins/
+usr/share/applications/
+usr/share/doc/
+usr/share/icons/
+usr/share/kaddressbook/
+usr/share/kconf_update/
+usr/share/kontact/
+usr/share/kservices5/
+usr/share/metainfo/
+usr/share/qlogging-categories5/
